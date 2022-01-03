@@ -5,11 +5,15 @@
 <h1>Home Page</h1>
 <div>
     <a href="{% url 'base:create_room' %}"> Create Room</a>
+    <br>
+    <br>
+    <br>
     <div>
         {% for room in rooms %}
         <div>
+            <a href="{% url 'base:update_room' room.id %}">Edit</a>
             <span>@{{room.host.username}}</span>
-            <h5>{{room.id}} -- <a href="{% url 'base:room' room.id %}">{{ room.name }}</a></h5>
+            <h5>{{room.id}} -- <a href="{{room.get_absolute_url}}">{{ room.name }}</a></h5>
             <small>{{room.topic.name}}</small>
             <hr>
         </div>
