@@ -4,6 +4,7 @@
 {% block content%}
 <h1>Home Page</h1>
 <div>
+    <a href="{% url 'base:create_room' %}"> Create Room</a>
     <div>
         {% for room in rooms %}
         <div>
