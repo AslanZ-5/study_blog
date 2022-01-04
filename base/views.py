@@ -6,6 +6,7 @@ from .forms import RoomForm
 from django.db.models import Q
 from django.contrib.auth.models import User                      
 from django.contrib import messages
+from django.contrib.auth import authenticate, login,logout 
 
 def login_page(request):
     if request.method == "POST":
@@ -15,12 +16,20 @@ def login_page(request):
         try:
             user = User.objects.get(username=username)
         except:
-            # messages.add_message(request,messages.Error, "This user doesn't exists")
             messages.error(request,"This user doesn't exists")
+        user = authenticate(request,username=username,password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('base:home')
+        else:
+            messages.error(request, "Username or password does not exists")
 
     context = {}
     return render(request,'login_register.html',context)
 
+def logout_user(request):
+    logout(request)
+    return redirect('base:home')
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
