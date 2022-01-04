@@ -2,6 +2,7 @@ from django.core.checks import messages
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from .models import Room, Topic
 from .forms import RoomForm
 from django.db.models import Q
@@ -11,10 +12,11 @@ from django.contrib.auth import authenticate, login,logout
 
 
 def login_page(request):
+    page = 'login'
     if request.user.is_authenticated:
         return redirect('base:home')
     if request.method == "POST":
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower()
         password = request.POST.get('password')
 
         try:
@@ -28,12 +30,27 @@ def login_page(request):
         else:
             messages.error(request, "Username or password does not exists")
 
-    context = {}
+    context = {'page':page}
     return render(request,'login_register.html',context)
 
 def logout_user(request):
     logout(request)
     return redirect('base:home')
+
+def register_page(request):
+    form = UserCreationForm()
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request,user)
+            return redirect('base:home')
+        else:
+            messages.error(request, 'An error eccured during registration')
+
+    return render(request, 'login_register.html',{'form':form})
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
