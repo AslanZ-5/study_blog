@@ -20,5 +20,17 @@
         </ul>
         {% endif %}
     </div>
+    <p>Havent signed up yet?</p>
+    <a href="{% url 'base:register' %}">Sign Up</a>
 </div> 
+
+<div>
+    <form method="post" action=".">
+            {%csrf_token%}
+         
+            <input type="submit" value="register">
+    </form>
+    <p>Already signed up?</p>
+    <a href="{% url 'base:login' %}">Login</a>
+</div>
 {% endblock %} 
