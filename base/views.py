@@ -1,12 +1,14 @@
 from django.core.checks import messages
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .models import Room, Topic
 from .forms import RoomForm
 from django.db.models import Q
 from django.contrib.auth.models import User                      
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout 
+
 
 def login_page(request):
     if request.method == "POST":
@@ -48,7 +50,7 @@ def room(request,pk):
     print('this is pk---',request.GET.get('pk'))
     return render(request,'room.html',{'room':room})
 
-
+@login_required(login_url='base:login')
 def create_room(request):
     form = RoomForm()
     if request.method == "POST":
@@ -61,9 +63,12 @@ def create_room(request):
     return render(request,'room_form.html',context)
 
 
+@login_required(login_url='base:login')
 def update_room(request,pk):
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
+    if request.user != room.host:
+        return HttpResponse('You are not allowed here! Only room authors can to update info.')
     if request.method  == "POST":
         form = RoomForm(request.POST,instance=room)
         if form.is_valid():
@@ -72,9 +77,11 @@ def update_room(request,pk):
     context = {'form':form}
     return render(request, 'update_room.html', context)
 
-
+@login_required(login_url='base:login')
 def delete_room(request,pk):
     room = Room.objects.get(id=pk)
+    if request.user != room.host:
+        return HttpResponse('You are not allowed here! Only room authors can to update info.')
     if request.method == 'POST':
         room.delete()
         return redirect('base:home')
