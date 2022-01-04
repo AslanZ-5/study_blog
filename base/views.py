@@ -1,12 +1,19 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Room
+from .models import Room, Topic
 from .forms import RoomForm
+from django.db.models import Q
 
 
 def home(request):
-    rooms = Room.objects.all()
-    context = {'rooms':rooms}
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    rooms = Room.objects.filter(Q(topic__name__icontains=q)|
+                                Q(name__icontains=q)|
+                                Q(description__icontains=q))
+    topic = Topic.objects.all()[:15]
+    
+    context = {'rooms':rooms,
+                'topic':topic}
     return render(request,'home.html',context=context)
 
 def room(request,pk):

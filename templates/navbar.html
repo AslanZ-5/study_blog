@@ -1,3 +1,7 @@
 <a href="{% url 'base:home' %}">
     <h1>LOGO</h1>
 </a>
+
+<form action="{% url 'base:home' %}" method="get">
+    <input type="text" name='q'/ placeholder="Search">
+</form>
