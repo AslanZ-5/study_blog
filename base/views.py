@@ -1,8 +1,25 @@
+from django.core.checks import messages
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Room, Topic
 from .forms import RoomForm
 from django.db.models import Q
+from django.contrib.auth.models import User                      
+from django.contrib import messages
+
+def login_page(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(username=username)
+        except:
+            # messages.add_message(request,messages.Error, "This user doesn't exists")
+            messages.error(request,"This user doesn't exists")
+
+    context = {}
+    return render(request,'login_register.html',context)
 
 
 def home(request):
@@ -11,9 +28,10 @@ def home(request):
                                 Q(name__icontains=q)|
                                 Q(description__icontains=q))
     topic = Topic.objects.all()[:15]
-    
+    room_count = rooms.count()
     context = {'rooms':rooms,
-                'topic':topic}
+                'topic':topic,
+                'room_count':room_count}
     return render(request,'home.html',context=context)
 
 def room(request,pk):
@@ -52,3 +70,5 @@ def delete_room(request,pk):
         room.delete()
         return redirect('base:home')
     return render(request, 'delete.html',{'obj':room})
+
+

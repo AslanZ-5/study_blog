@@ -3,12 +3,14 @@ from .views import (home,
                     room,
                     create_room,
                     update_room,
-                    delete_room
+                    delete_room,
+                    login_page
                     )
 
 app_name = 'base'
 
 urlpatterns = [
+    path('login/',login_page,name='login' ),
     path('',home, name='home'),
     path('room/<str:pk>/',room, name='room'),
     path('create-room/',create_room, name='create_room' ),
