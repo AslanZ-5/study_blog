@@ -66,8 +66,12 @@ def home(request):
 
 def room(request,pk):
     room = Room.objects.get(id=pk)
-    print('this is pk---',request.GET.get('pk'))
-    return render(request,'room.html',{'room':room})
+    messages = room.message_set.all()
+    context = {
+        'room':room,
+        'messages':messages,
+    }    
+    return render(request,'room.html',context)
 
 @login_required(login_url='base:login')
 def create_room(request):
