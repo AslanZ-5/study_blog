@@ -18,9 +18,12 @@
     {% for message in messages %} 
     <hr>
            <div>
+            {% if request.user == message.user %}
+               <a href="{% url 'base:delete_message' message.id  %}">Delete</a>
+               {% endif %}
                <small> @{{message.user}} {{message.created|timesince}}</small>
                
-               {{message.body}} <br>
+               {{message}} <br>
            </div>
             
     {% endfor %} 

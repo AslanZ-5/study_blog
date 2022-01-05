@@ -59,9 +59,12 @@ def home(request):
                                 Q(description__icontains=q))
     topic = Topic.objects.all()[:15]
     room_count = rooms.count()
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))[:7]
     context = {'rooms':rooms,
                 'topic':topic,
-                'room_count':room_count}
+                'room_count':room_count,
+                'room_messages':room_messages}
+    
     return render(request,'home.html',context=context)
 
 def room(request,pk):
@@ -114,10 +117,19 @@ def update_room(request,pk):
 def delete_room(request,pk):
     room = Room.objects.get(id=pk)
     if request.user != room.host:
-        return HttpResponse('You are not allowed here! Only room authors can to update info.')
+        return HttpResponse('You are not allowed here! Only room authors can to delete room .')
     if request.method == 'POST':
         room.delete()
         return redirect('base:home')
     return render(request, 'delete.html',{'obj':room})
 
 
+@login_required(login_url='base:login')
+def delete_message(request,pk):
+    message = Message.objects.get(id=pk)
+    if request.user != message.user:
+        return HttpResponse('You are not allowed here! Only message authors can to delete message.')
+    if request.method == 'POST':
+        message.delete()
+        return redirect('base:home')
+    return render(request, 'delete.html',{'obj':message})

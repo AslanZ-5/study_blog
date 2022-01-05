@@ -6,7 +6,8 @@ from .views import (home,
                     delete_room,
                     login_page,
                     logout_user,
-                    register_page
+                    register_page,
+                    delete_message
                     )
 
 app_name = 'base'
@@ -20,4 +21,6 @@ urlpatterns = [
     path('create-room/',create_room, name='create_room' ),
     path('update-room/<int:pk>/',update_room, name='update_room' ),
     path('delete-room/<int:pk>/',delete_room, name='delete_room' ),
+    path('delete-message/<int:pk>/',delete_message, name='delete_message' ),
+
 ]
