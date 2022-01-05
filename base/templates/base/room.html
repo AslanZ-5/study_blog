@@ -21,7 +21,7 @@
             {% if request.user == message.user %}
                <a href="{% url 'base:delete_message' message.id  %}">Delete</a>
                {% endif %}
-               <small> @{{message.user}} {{message.created|timesince}}</small>
+               <small><a href="{% url 'base:user-profile' message.user.id %}">@{{message.user}}</a>  {{message.created|timesince}}</small>
                
                {{message}} <br>
            </div>
@@ -42,7 +42,7 @@
         <h3>Participants</h3>
         <hr>
         {% for user in participants %} 
-                <p>@{{user.username}}</p> 
+                <p><a href="{% url 'base:user-profile' user.id %}">@{{user.username}}</a></p> 
         {% endfor %} 
     </div>
 </div>
