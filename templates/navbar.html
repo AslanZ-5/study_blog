@@ -1,8 +1,8 @@
-
+{% load static %} 
  <header class="header header--loggedIn">
     <div class="container">
       <a href="{% url 'base:home' %}" class="header__logo">
-        <img src="assets/logo.svg" />
+        <img src="{% static 'logo.svg' %}" />
         <h1>StudyBuddy</h1>
       </a>
       <form class="header__search" action="{% url 'base:home' %}" method="get" >
@@ -17,20 +17,16 @@
         </label>
       </form>
       <nav class="header__menu">
-          <!-- Not Logged In -->
-          <!-- <a href="/login.html">
-            <img src="./assets/avatar.svg" />
-            <p>Login</p>
-          </a> -->
+        
       
           <!-- Logged In -->
-      
+          {% if user.is_authenticated %} 
           <div class="header__user">
             <a href="profile.html">
               <div class="avatar avatar--medium active">
                 <img src="https://randomuser.me/api/portraits/men/37.jpg" />
               </div>
-              <p>John Doe <span>@john_doe</span></p>
+              <p>{{user.first_name}} {{user.last_name}}<span>@{{user.username}}</span></p>
             </a>
             <button class="dropdown-button">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -50,7 +46,7 @@
               </svg>
               Settings</a
             >
-            <a href="login.html" class="dropdown-link"
+            <a href="{% url 'base:logout' %}" class="dropdown-link"
               ><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                 <title>sign-out</title>
                 <path
@@ -63,14 +59,20 @@
               Logout</a
             >
           </div>
+        {% else %} 
+          <a href="{% url 'base:login' %}">
+            
+            <p>Login</p>
+          </a>
+          <a href="{% url 'base:register' %}">
+           
+            <p>Sign up</p>
+          </a>
+          {% endif %} 
         </nav>
     </div>
   </header>
 
 
-{% if user.is_authenticated %} 
-<a href="{% url 'base:logout' %}">Logout</a>
-{% else %}
-<a href="{% url 'base:login' %}">Login</a>
-<a href="{% url 'base:register' %}">Sign up</a>
-{% endif %}
+
+
