@@ -7,7 +7,8 @@ from .views import (home,
                     login_page,
                     logout_user,
                     register_page,
-                    delete_message
+                    delete_message,
+                    userProfile,
                     )
 
 app_name = 'base'
@@ -17,6 +18,7 @@ urlpatterns = [
     path('logout/',logout_user,name='logout'),
     path('register/',register_page,name='register'),
     path('',home, name='home'),
+    path('profile/<str:pk>',userProfile,name='user-profile'),
     path('room/<str:pk>/',room, name='room'),
     path('create-room/',create_room, name='create_room' ),
     path('update-room/<int:pk>/',update_room, name='update_room' ),
