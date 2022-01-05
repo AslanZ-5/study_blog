@@ -2,6 +2,14 @@
 {% block title %} Room Page {% endblock title%}
 
 {% block content%}
+<style>
+    .room-container{
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
+<div class="room-container">
+    <div>
 <h1>{{ room.name }}</h1>
 <p>{{room.description}}</p>
 <div class="comment-wrapper">
@@ -26,5 +34,10 @@
     </form>
 </div>
 {% endif %}
+    </div>
+    <div>
+        <h3>Participants</h3>
+    </div>
+</div>
 {% endblock %}
 
