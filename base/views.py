@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import Message, Room, Topic
-from .forms import RoomForm
+from .forms import RoomForm,UserForm
 from django.db.models import Q
 from django.contrib.auth.models import User                      
 from django.contrib import messages
@@ -157,3 +157,12 @@ def delete_message(request,pk):
         message.delete()
         return redirect('base:home')
     return render(request, 'delete.html',{'obj':message})
+
+@login_required(login_url='login')
+def editUser(request,pk):
+    user = request.user
+    form = UserForm(instance=user)
+
+    
+
+    return render(request,'edit-user.html',{'form':form})
