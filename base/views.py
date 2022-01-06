@@ -127,12 +127,15 @@ def update_room(request,pk):
     if request.user != room.host:
         return HttpResponse('You are not allowed here! Only room authors can to update info.')
     if request.method  == "POST":
-        form = RoomForm(request.POST,instance=room)
-        if form.is_valid():
-            form.save()
-            return redirect(room.get_absolute_url())
-    context = {'form':form,'topics':topics}
-    return render(request, 'update_room.html', context)
+        print(request.POST)
+        topic,created = Topic.objects.get_or_create(name=request.POST.get('topic')) 
+        room.topic = topic
+        room.name = request.POST.get('name')
+        room.description = request.POST.get('description')
+        room.save()
+        return redirect(room.get_absolute_url())
+    context = {'form':form,'topics':topics,'room':room}
+    return render(request, 'create_update_room.html', context)
 
 @login_required(login_url='base:login')
 def delete_room(request,pk):
