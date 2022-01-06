@@ -63,7 +63,8 @@ def home(request):
     context = {'rooms':rooms,
                 'topic':topic,
                 'room_count':room_count,
-                'room_messages':room_messages}
+                'room_messages':room_messages,
+                }
     
     return render(request,'home.html',context=context)
 
