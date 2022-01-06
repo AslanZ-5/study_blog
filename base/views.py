@@ -102,21 +102,26 @@ def userProfile(request,pk):
 @login_required(login_url='base:login')
 def create_room(request):
     form = RoomForm()
+    topics = Topic.objects.all()
     if request.method == "POST":
-        form = RoomForm(request.POST)
-        if form.is_valid():
-            room = form.save(commit=False)
-            room.host = request.user
-            room.save()
-            room.participants.add(request.user)
-            return redirect('base:home')
+        topic,created = Topic.objects.get_or_create(name=request.POST.get('topic')) 
+        Room.objects.create(
+            name= request.POST.get('name'),
+            host= request.user,
+            description= request.POST.get('description'),
+            topic= topic,
+        )
+        return redirect('base:home')
+        
+            
         print(request.POST)
-    context = {'form':form}
+    context = {'form':form,'topics':topics}
     return render(request,'create-room.html',context)
 
 
 @login_required(login_url='base:login')
 def update_room(request,pk):
+    topics = Topic.objects.all()
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
     if request.user != room.host:
@@ -126,7 +131,7 @@ def update_room(request,pk):
         if form.is_valid():
             form.save()
             return redirect(room.get_absolute_url())
-    context = {'form':form}
+    context = {'form':form,'topics':topics}
     return render(request, 'update_room.html', context)
 
 @login_required(login_url='base:login')
