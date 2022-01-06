@@ -162,7 +162,11 @@ def delete_message(request,pk):
 def editUser(request,pk):
     user = request.user
     form = UserForm(instance=user)
-
+    if request.method == "POST":
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('base:user-profile',user.id)
     
 
     return render(request,'edit-user.html',{'form':form})
