@@ -170,3 +170,13 @@ def editUser(request,pk):
     
 
     return render(request,'edit-user.html',{'form':form})
+
+
+def topics_view(request):
+    context = {}
+    return render(request,'topics.html',context=context)
+
+
+def activities_view(request):
+    context = {}
+    return render(request,'activity.html',context=context)
