@@ -10,6 +10,8 @@ from .views import (editUser, home,
                     delete_message,
                     userProfile,
                     editUser,
+                    topics_view,
+                    activities_view
                     )
 
 app_name = 'base'
@@ -26,5 +28,7 @@ urlpatterns = [
     path('delete-room/<int:pk>/',delete_room, name='delete_room' ),
     path('delete-message/<int:pk>/',delete_message, name='delete_message' ),
     path('edit-user/<int:pk>/',editUser, name='edit_user' ),
+    path('topics',topics_view,name='topics'),
+    path('activities',activities_view,name='activities')
 
 ]
