@@ -84,17 +84,34 @@
       <div class="layout__body">
         <h2 class="auth__tagline">Find your study partner</h2>
 
-        <form class="form" action="" method="post"> 
-            {% csrf_token %}
-          {% for field in form %} 
-     
-          <div class="form__group">
-            <label for="password">{{field.label}}</label>
-            {{field}}
+        <form class="form" action="#">
+          <div class="form__group form__group">
+            <label for="fullname">Full Name</label>
+            <input id="fullname" name="fullname" type="text" placeholder="e.g. Dennis Ivy" />
           </div>
-          {% endfor %}
+          <div class="form__group form__group">
+            <label for="room_name">Username</label>
+            <input id="username" name="username" type="text" placeholder="e.g. dennis_ivy" />
+          </div>
+          <div class="form__group">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+            />
+          </div>
 
-         
+          <div class="form__group">
+            <label for="confirm_password">Confirm Password</label>
+            <input
+              id="confirm_password"
+              name="confirm_password"
+              type="password"
+              placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+            />
+          </div>
 
           <button class="btn btn--main" type="submit">
             <svg
@@ -119,7 +136,7 @@
 
         <div class="auth__action">
           <p>Already have an account?</p>
-          <a href="{% url 'base:login' %}" class="btn btn--link">Log In</a>
+          <a href="login.html" class="btn btn--link">Log In</a>
         </div>
       </div>
     </div>
