@@ -173,9 +173,9 @@ def editUser(request,pk):
 
 
 def topics_view(request):
-    topics = Topic.objects.all()
-    rooms = Room.objects.all()
-    context = {'topics':topics,'rooms':rooms}
+    q = request.GET.get('q') if request.GET.get('q') != None else ""
+    topics = Topic.objects.filter(name__icontains=q)
+    context = {'topics':topics}
     return render(request,'topics.html',context=context)
 
 
