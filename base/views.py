@@ -173,10 +173,13 @@ def editUser(request,pk):
 
 
 def topics_view(request):
-    context = {}
+    topics = Topic.objects.all()
+    rooms = Room.objects.all()
+    context = {'topics':topics,'rooms':rooms}
     return render(request,'topics.html',context=context)
 
 
 def activities_view(request):
-    context = {}
+    messages = Message.objects.all()[:6]
+    context = {'messages':messages}
     return render(request,'activity.html',context=context)
