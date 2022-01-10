@@ -12,29 +12,27 @@
         <div class="profile">
           <div class="profile__avatar">
             <div class="avatar avatar--large active">
-              <img src="https://randomuser.me/api/portraits/men/11.jpg" />
+              <img src="{{profile.image.url}}" />
             </div>
           </div>
           <div class="profile__info">
-            <h3>{{prof_user.first_name}} {{prof_user.last_name}}</h3>
-            <p>@{{prof_user.username}}</p>
-            {% if user == prof_user %}
+            <h3>{{profile.user.first_name}} {{profile.user.last_name}} </h3>
+            <p>@{{profile.user.username}}</p>
+            {% if user == profile.user %}
             <a href="{% url 'base:edit_user' user.id %}" class="btn btn--main btn--pill">Edit Profile</a>
             {% endif %}
           </div>
           <div class="profile__about">
             <h3>About</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur illo tenetur
-              facilis sunt nemo debitis quisquam hic atque aut? Ducimus alias placeat optio
-              accusamus repudiandae quis ab ex exercitationem rem?
+              {{profile.bio}}
             </p>
           </div>
         </div>
 
         <div class="roomList__header">
           <div>
-            <h2>Study Rooms Hosted by dennis_ivy</a>
+            <h2>Study Rooms Hosted by {{profile.user.username}}</a>
             </h2>
           </div>
         </div>

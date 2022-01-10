@@ -113,18 +113,19 @@
               </div>
             </div>
           </div>
-          {% if request.user.is_authenticated %}
+          
           <div class="room__message">
             <form action="" method="post">
               {% csrf_token%}
-              <input name="body" placeholder="Write your message here..." /></form>
+              {% if request.user.is_authenticated %}<input name="body" placeholder="Write your message here..." />{%endif%}</form>
           </div>
         </div>
-        {% endif %} 
+         
         <!-- Room End -->
 
         <!--   Start -->
         <div class="participants">
+          
           <h3 class="participants__top">Participants <span>({{participants.count}} Joined)</span></h3>
           <div class="participants__list scroll">
             {% for participant in participants %}

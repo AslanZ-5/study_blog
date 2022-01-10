@@ -3,7 +3,7 @@
     <div class="container">
       <a href="{% url 'base:home' %}" class="header__logo">
         <img src="{% static 'logo.svg' %}" />
-        <h1>StudyBuddy</h1>
+        <h1>Study</h1>
       </a>
       <form class="header__search" action="{% url 'base:home' %}" method="get" >
         <label>
@@ -24,7 +24,7 @@
           <div class="header__user">
             <a href="{% url 'base:user-profile' user.id %}">
               <div class="avatar avatar--medium active">
-                <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                <img src="{{user.profile.image.url}}" />
               </div>
               <p>{{user.first_name}} {{user.last_name}}<span>@{{user.username}}</span></p>
             </a>
@@ -34,7 +34,7 @@
                 <path d="M16 21l-13-13h-3l16 16 16-16h-3l-13 13z"></path>
               </svg>
             </button>
-          </div>
+          </div>  
       
           <div class="dropdown-menu">
             <a href="{% url 'base:edit_user' user.id %}" class="dropdown-link"

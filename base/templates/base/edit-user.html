@@ -19,18 +19,23 @@
                     </div>
                 </div>
                 <div class="layout__body">
-                    <form class="form" action="" method="post">
+                    <form class="form" action="" method="post" enctype="multipart/form-data">
                       {% csrf_token %}
-                        <div class="form__group">
-                            <label for="profile_pic">Avatar</label>
-                            <input id="profile_pic" name="profile_pic" type="file" />
-                        </div>
+                       
                 {% for  field in  form %}
               <div class="form__group">
                 <label for="username">{{field.label}}</label>
                 {{field}}
               </div>
                 {% endfor %}
+                <div class="form__group">
+                    <label for="username">About</label>
+                    {{pform.bio}}
+                  </div>
+                 <div class="form__group">
+                             <label for="profile_pic">Image</label>
+                           {{pform.image}}
+                        </div>
              
                         <div class="form__action">
                             <a class="btn btn--dark" href="index.html">Cancel</a>

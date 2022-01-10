@@ -3,8 +3,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .models import Message, Room, Topic
-from .forms import RoomForm,UserForm
+from .models import Message, Room, Topic,Profile
+from .forms import RoomForm,UserForm,ProfileForm,RegistrationForm
 from django.db.models import Q
 from django.contrib.auth.models import User                      
 from django.contrib import messages
@@ -38,9 +38,9 @@ def logout_user(request):
     return redirect('base:home')
 
 def register_page(request):
-    form = UserCreationForm()
+    form = RegistrationForm()
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
@@ -88,14 +88,15 @@ def room(request,pk):
     return render(request,'room.html',context)
 
 def userProfile(request,pk):
-    user = User.objects.get(id=pk)
-    rooms = user.room_set.all()
+    profile = Profile.objects.get(user_id=pk)
+    rooms = profile.user.room_set.all()
     topic = Topic.objects.all()
-    room_messages = user.message_set.all()
-    context = {'prof_user':user,
+    room_messages = profile.user.message_set.all()
+    context = {
                 'rooms':rooms,
                 'topic':topic,
-                'room_messages':room_messages
+                'room_messages':room_messages,
+                'profile':profile,
                 }
     return render(request, 'profile.html',context=context)
 
@@ -161,15 +162,19 @@ def delete_message(request,pk):
 @login_required(login_url='login')
 def editUser(request,pk):
     user = request.user
+    profile = Profile.objects.get(user=user)
     form = UserForm(instance=user)
+    P_form = ProfileForm(instance=profile)
     if request.method == "POST":
         form = UserForm(request.POST, instance=user)
-        if form.is_valid():
+        P_form = ProfileForm(request.POST,request.FILES,instance=profile)
+        if form.is_valid() and P_form.is_valid():
             form.save()
+            P_form.save()
             return redirect('base:user-profile',user.id)
     
 
-    return render(request,'edit-user.html',{'form':form})
+    return render(request,'edit-user.html',{'form':form,'pform':P_form})
 
 
 def topics_view(request):
