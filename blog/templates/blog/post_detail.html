@@ -79,6 +79,17 @@
           
         </div>
         <span class="room__topics">category</span>
+        <form action="{% url 'blog:like_post' %}" method="post">
+          {% csrf_token %}
+
+          
+          {% if liked %}
+        <button name="post_id" value="{{post.id}}">UnLike</button>{{post.likes.count}}
+        {% else %}
+        <button name="post_id" value="{{post.id}}">Like</button>{{post.likes.count}}
+
+        {% endif %}
+      </form>
       </div>
 
 
