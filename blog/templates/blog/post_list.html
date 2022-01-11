@@ -40,6 +40,9 @@
         </svg>
          Joined
       </a>
+      <a href="{% url 'blog:post_update' post.title_tag %}">Update</a>
+      <a href="{% url 'blog:post_delete' post.title_tag %}">Delete</a>
+
       <p class="roomListRoom__topic">Category</p>
     </div>
   </div>

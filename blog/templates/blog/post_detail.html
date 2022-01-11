@@ -19,7 +19,7 @@
       </div>
           
       <div class="room__topRight">
-        <a href="#">
+        <a href="{% url 'blog:post_update' post.title_tag %}">
           <svg
             enable-background="new 0 0 24 24"
             height="32"
@@ -45,7 +45,8 @@
             </g>
           </svg>
         </a>
-        <a href="#">
+        
+        <a href="{% url 'blog:post_delete' post.title_tag %}">
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
             <title>remove</title>
             <path

@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+{% block title %} Add Post {% endblock %}
+{% block content%}
+ 
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+<p>Are you sure to delete {{object.title}}</p>
+<button >Delete Post</button>
+</form>
+
+{% endblock %}
