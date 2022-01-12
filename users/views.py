@@ -83,7 +83,7 @@ def editUser(request,pk):
         if form.is_valid() and P_form.is_valid():
             form.save()
             P_form.save()
-            return redirect('base:user-profile',user.id)
+            return redirect('users:user-profile',user.id)
     
 
     return render(request,'edit-user.html',{'form':form,'pform':P_form})
