@@ -22,7 +22,7 @@
           <!-- Logged In -->
           {% if user.is_authenticated %} 
           <div class="header__user">
-            <a href="{% url 'base:user-profile' user.id %}">
+            <a href="{% url 'users:user-profile' user.id %}">
               <div class="avatar avatar--medium active">
                 <img src="{{user.profile.image.url}}" />
               </div>
@@ -37,7 +37,7 @@
           </div>  
       
           <div class="dropdown-menu">
-            <a href="{% url 'base:edit_user' user.id %}" class="dropdown-link"
+            <a href="{% url 'users:edit_user' user.id %}" class="dropdown-link"
               ><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                 <title>tools</title>
                 <path
@@ -46,7 +46,7 @@
               </svg>
               Settings</a
             >
-            <a href="{% url 'base:logout' %}" class="dropdown-link"
+            <a href="{% url 'users:logout' %}" class="dropdown-link"
               ><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                 <title>sign-out</title>
                 <path
@@ -60,11 +60,11 @@
             >
           </div>
         {% else %} 
-          <a href="{% url 'base:login' %}">
+          <a href="{% url 'users:login' %}">
             
             <p>Login</p>
           </a>
-          <a href="{% url 'base:register' %}">
+          <a href="{% url 'users:register' %}">
            
             <p>Sign up</p>
           </a>

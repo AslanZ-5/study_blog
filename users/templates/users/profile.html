@@ -19,7 +19,7 @@
             <h3>{{profile.user.first_name}} {{profile.user.last_name}} </h3>
             <p>@{{profile.user.username}}</p>
             {% if user == profile.user %}
-            <a href="{% url 'base:edit_user' user.id %}" class="btn btn--main btn--pill">Edit Profile</a>
+            <a href="{% url 'users:edit_user' user.id %}" class="btn btn--main btn--pill">Edit Profile</a>
             {% endif %}
           </div>
           <div class="profile__about">

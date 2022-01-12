@@ -17,7 +17,7 @@
 <div class="container" style="margin-top: 20px;">
 <div class="roomListRoom">
     <div class="roomListRoom__header">
-      <a href="{% url 'base:user-profile' post.author.id %}" class="roomListRoom__author">
+      <a href="{% url 'users:user-profile' post.author.id %}" class="roomListRoom__author">
         <div class="avatar avatar--small active">
           <img src="{{post.author.profile.image.url}}" />
         </div>

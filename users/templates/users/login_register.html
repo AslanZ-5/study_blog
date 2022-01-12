@@ -7,6 +7,7 @@
         {% for message in messages %}
         <li>{{ message }}</li>
         {% endfor %}
+
     </ul>
     {% endif %}
 </div>
@@ -63,7 +64,7 @@
 
             <div class="auth__action">
               <p>Haven't signed up yet?</p>
-              <a href="{% url 'base:register' %}" class="btn btn--link">Sign Up</a>
+              <a href="{% url 'users:register' %}" class="btn btn--link">Sign Up</a>
             </div>
           </div>
         </div>
@@ -119,7 +120,7 @@
 
         <div class="auth__action">
           <p>Already have an account?</p>
-          <a href="{% url 'base:login' %}" class="btn btn--link">Log In</a>
+          <a href="{% url 'users:login' %}" class="btn btn--link">Log In</a>
         </div>
       </div>
     </div>

@@ -84,7 +84,7 @@
                 <div class="thread">
                   <div class="thread__top">
                     <div class="thread__author">
-                      <a href="{% url 'base:user-profile' message.user.id %}" class="thread__authorInfo">
+                      <a href="{% url 'users:user-profile' message.user.id %}" class="thread__authorInfo">
                         <div class="avatar avatar--small">
                           <img src="https://randomuser.me/api/portraits/men/37.jpg" />
                         </div>
@@ -129,7 +129,7 @@
           <h3 class="participants__top">Participants <span>({{participants.count}} Joined)</span></h3>
           <div class="participants__list scroll">
             {% for participant in participants %}
-            <a href="{% url 'base:user-profile' participant.id %}" class="participant">
+            <a href="{% url 'users:user-profile' participant.id %}" class="participant">
               <div class="avatar avatar--medium">
                 <img src="https://randomuser.me/api/portraits/men/37.jpg" />
               </div>
