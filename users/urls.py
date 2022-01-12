@@ -6,6 +6,8 @@ from .views  import (
     register_page,
     userProfile,
     editUser,
+    password_success,
+    PasswordsChangeView
      
                         )
 
@@ -17,10 +19,8 @@ urlpatterns = [
     path('register/',register_page,name='register'),
     path('profile/<str:pk>',userProfile,name='user-profile'),
     path('edit-user/<int:pk>/',editUser, name='edit_user' ),
-    path(
-        'change-password/',
-        auth_views.PasswordChangeView.as_view(template_name='change-password.html'), name='change_password'
-    ),
+    path('change-password/',PasswordsChangeView.as_view(), name='change_password'),
+    path('password/success',password_success,name='password_success'),
 
 
 ]

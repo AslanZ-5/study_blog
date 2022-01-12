@@ -9,7 +9,16 @@ from django.db.models import Q
 from django.contrib.auth.models import User                      
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout 
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
 
+
+class PasswordsChangeView(PasswordChangeView):
+    success_url = reverse_lazy('users:password_success')
+    template_name = 'change-password.html'
+
+def password_success(request):
+    return render(request, 'users/password_success.html')
 
 def login_page(request):
     page = 'login'
