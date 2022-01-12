@@ -66,6 +66,10 @@ class UpdatePostView(UpdateView):
     model = Post
     slug_field = 'title_tag'
     fields = ['title','body']
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['update'] = True
+        return context
 
 
 class DeletePostView(DeleteView):

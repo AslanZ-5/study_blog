@@ -2,11 +2,25 @@
 {% block title %} Add Post {% endblock %}
 {% block content%}
  
+<div class="layout__body">
+    <form class="form" action="" method="post">
+      {% csrf_token %}
+      
+      <div class="form__group">
+        <label for="room_topic">Title</label>
+        {{form.title}}
+      </div>
 
-<form action="" method="post">
-    {% csrf_token %}
-{{form.as_p}}
-<button >Add Post</button>
-</form>
+      <div class="form__group">
+        <label for="room_name">Body</label>
+          {{form.body}}
+      </div>
+      <div class="form__action">
+        <a class="btn btn--dark" href="{% url 'blog:home' %}">Cancel</a>
+        <button class="btn btn--main" type="submit">{% if update %} Update Post {% else %} Add Post {% endif %}</button>
+      </div>
+    </form>
+    
+  </div>
 
 {% endblock %}
