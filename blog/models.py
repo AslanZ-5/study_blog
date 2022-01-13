@@ -1,6 +1,9 @@
+from re import T
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from mptt.models import MPTTModel,TreeForeignKey
+
 
 
 class Post(models.Model):
@@ -25,5 +28,16 @@ class Post(models.Model):
         self.title_tag = f"{self.title.replace(' ', '-')}-{a+1}-{self.author.id}"
         super().save(*args,**kwargs)
 
+class Comment(MPTTModel):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE, related_name='comments')
+    parent = TreeForeignKey('self',on_delete=models.CASCADE, null=True,blank=True,related_name='children')
+    writer = models.ForeignKey(User,on_delete=models.CASCADE)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True)
 
+    class MPTTMeta:
+        order_insertion_by = ['created']
+    def __str__(self):
+        return f'Comment by {self.writer.username}'
 
