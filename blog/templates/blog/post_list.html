@@ -29,10 +29,10 @@
           <div class="roomListRoom">
               <div class="roomListRoom__header">
                 <a href="{% url 'users:user-profile' post.author.id %}" class="roomListRoom__author">
-                  <div class="avatar avatar--small active">
+                  <div class="avatar avatar--small active ">
                     <img src="{{post.author.profile.image.url}}" />
                   </div>
-                  <span>@{{post.author.username}}</span>
+                  <span>@{{post.author.username}} </span>
                 </a>
                 <div class="roomListRoom__actions">
                   <span>{{post.created|timesince}}</span>
@@ -79,7 +79,7 @@
           <div class="activities__header">
             <h2>Popular Posts</h2>
           </div>
-          {% for post in post_list %}
+          {% for post in popular_posts %}
 
             <div class="activities__box">
               <div class="activities__boxHeader roomListRoom__header">
@@ -92,6 +92,7 @@
                     <span>{{post.created|timesince}}</span>
                   </p>
                 </a>
+                
                {% if user == post.author %}
                <div class="roomListRoom__actions">
                   
@@ -108,6 +109,7 @@
             
              
               </div>
+              <p><a href="{% url 'blog:post_detail' post.title_tag %}">{{post.title}}</a></p>
               <div class="activities__boxContent">
                
                 <div class="activities__boxRoomContent">

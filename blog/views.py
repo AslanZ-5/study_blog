@@ -34,6 +34,10 @@ class HomeListView(ListView):
         else:
             obj_list = self.model.objects.all()
         return obj_list
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['popular_posts'] = Post.objects.all().order_by('-likes')[:5]
+        return context
 
 class PostDetailView(DetailView):
     model = Post
