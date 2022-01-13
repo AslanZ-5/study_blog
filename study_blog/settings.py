@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
+    'mptt',
 ]
 
 MIDDLEWARE = [
