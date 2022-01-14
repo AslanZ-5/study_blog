@@ -1,17 +1,18 @@
-from django.db import models
-from django.db.models import query
 from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_list_or_404
 from django.urls import reverse
 from django.urls.converters import SlugConverter
-from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
-from .models import Post
+from django.views.generic import ListView,CreateView,UpdateView,DeleteView
+from .models import Post,Comment
+from django.views.generic.edit import FormMixin
+from django.views.generic.detail import DetailView
+
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
-
+from .forms import CommentForm
 
 def LikePost(request):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
@@ -39,9 +40,13 @@ class HomeListView(ListView):
         context['popular_posts'] = Post.objects.all().order_by('-likes')[:5]
         return context
 
-class PostDetailView(DetailView):
+class PostDetailView(FormMixin,DetailView):
     model = Post
     slug_field = 'title_tag'
+
+    def get_success_url(self):
+        return reverse('post_detail',kwargs={'slug':self.object.title_tag})
+    
     def get_context_data(self, *args,**kwargs):
         like_post = get_object_or_404(Post,title_tag=self.kwargs['slug'])
         context = super(PostDetailView,self).get_context_data(*args,**kwargs)
@@ -49,7 +54,22 @@ class PostDetailView(DetailView):
         if like_post.likes.filter(id=self.request.user.id).exists():
             liked = True
         context['liked'] = liked
+        context['form'] = CommentForm(initial={'post':self.object})
         return context
+
+    def post(self,request,*args,**kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+    def form_valid(self,form):
+        form.instance.author = self.request.user
+
+        form.save()
+        return super(PostDetailView, form).form_valid(form)
+
 
         
 
