@@ -43,9 +43,10 @@ class HomeListView(ListView):
 class PostDetailView(FormMixin,DetailView):
     model = Post
     slug_field = 'title_tag'
+    form_class = CommentForm
 
     def get_success_url(self):
-        return reverse('post_detail',kwargs={'slug':self.object.title_tag})
+        return reverse('blog:post_detail',kwargs={'slug':self.object.title_tag})
     
     def get_context_data(self, *args,**kwargs):
         like_post = get_object_or_404(Post,title_tag=self.kwargs['slug'])
@@ -65,10 +66,11 @@ class PostDetailView(FormMixin,DetailView):
         else:
             return self.form_invalid(form)
     def form_valid(self,form):
-        form.instance.author = self.request.user
+        form.instance.writer_id = self.request.user.id
+        form.instance.post = self.get_object()
 
         form.save()
-        return super(PostDetailView, form).form_valid(form)
+        return super().form_valid(form)
 
 
         
