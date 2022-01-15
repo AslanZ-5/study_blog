@@ -107,7 +107,7 @@
                 </div>
                 <span>@{{node.writer}}</span>
               </a> 
-              <button class="button" onclick="myFunction({{node.id}})">Reply</button>
+              <button class="btn btn-outline-info" style="background-color: rgb(59, 59, 92); " onclick="myFunction({{node.id}})">Reply</button>
               <span class="thread__date">{{node.created|timesince}}</span>
             </div>
             
@@ -129,7 +129,7 @@
           </div>
         </div> 
         {% if not node.is_leaf_node %} 
-        <div class="children p1-2 pl-md-5">
+        <div  class="children p1-2 pl-md-5">
           {{children}}
         </div>
         {% endif %}
@@ -141,7 +141,7 @@
   <div class="room__message">
     <form id="myForm" action="" method="post">
       {% csrf_token%}
-     <input name="content" placeholder="Write your comment here..." />
+     <input  name="content" placeholder="Write your comment here..." />
         {{form.parent}}
     </form>
   </div>
@@ -155,7 +155,7 @@
     var a = document.getElementById(id);
     a.insertAdjacentHTML('afterend','<form id="newForm" method="post">\
       <input type="hidden" name="csrfmiddlewaretoken" value="HMkjvTm6y6toukgnl16ymgrmmnRxE33FyjctimptkcCKMrwEkFfyktsHLKPqWFr5">\
-      <input name="content" placeholder="Write your comment here...">\
+      <input style="background-color: rgb(67, 67, 114); color: rgb(189, 186, 186);"  class="form-control " name="content" placeholder="Write your comment here...">\
       <select name="parent" class="d-none" id="id_parent">\
         <option value="'+ id + '" selected="' + id + '"></option>\
       </select>\
