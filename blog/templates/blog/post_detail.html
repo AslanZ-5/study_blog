@@ -107,7 +107,7 @@
                 </div>
                 <span>@{{node.writer}}</span>
               </a> 
-              <a onclick="myFunction({{node.id}})">Reply</a>
+              <button class="button" onclick="myFunction({{node.id}})">Reply</button>
               <span class="thread__date">{{node.created|timesince}}</span>
             </div>
             
@@ -123,7 +123,7 @@
           </a>
          
           </div>
-          <div class="thread__details">
+          <div id="{{node.id}}" class="thread__details">
             {{node.content}}
             
           </div>
@@ -139,7 +139,7 @@
   </div>
   
   <div class="room__message">
-    <form action="" method="post">
+    <form id="myForm" action="" method="post">
       {% csrf_token%}
      <input name="content" placeholder="Write your comment here..." />
         {{form.parent}}
@@ -147,9 +147,22 @@
   </div>
 </div>
 
-
-   
-
-
-
+<script>
+  function myFunction(id) {
+    if (document.contains(document.getElementById('newForm'))){
+      document.getElementById('newForm').remove();
+    }
+    var a = document.getElementById(id);
+    a.insertAdjacentHTML('afterend','<form id="newForm" method="post">\
+      <input type="hidden" name="csrfmiddlewaretoken" value="HMkjvTm6y6toukgnl16ymgrmmnRxE33FyjctimptkcCKMrwEkFfyktsHLKPqWFr5">\
+      <input name="content" placeholder="Write your comment here...">\
+      <select name="parent" class="d-none" id="id_parent">\
+        <option value="'+ id + '" selected="' + id + '"></option>\
+      </select>\
+      {% csrf_token%} \
+      </form>' );
+  };
+$('#myForm').trigger('reset');
+</script>
 {% endblock %}
+
