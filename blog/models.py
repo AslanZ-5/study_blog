@@ -38,6 +38,7 @@ class Comment(MPTTModel):
 
     class MPTTMeta:
         order_insertion_by = ['created']
+        
     def __str__(self):
         return f'Comment "{self.content[:50]}" by {self.writer.username}'
 
