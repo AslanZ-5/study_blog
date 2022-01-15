@@ -90,7 +90,7 @@
 
       {% endif %}
     </form>
-    {{post.comment_set.all.count}}
+
     </div>
     
     <div class="room__conversation">
@@ -98,6 +98,7 @@
         {% load mptt_tags %}
 
         {% recursetree post.comment_set.all %}
+        <div class="my-2 p-2" style="border: 1px solid grey;">
         <div class="thread">
           <div class="thread__top">
             <div class="thread__author">
@@ -128,6 +129,7 @@
             
           </div>
         </div> 
+      </div>
         {% if not node.is_leaf_node %} 
         <div  class="children p1-2 pl-md-5">
           {{children}}
@@ -148,12 +150,16 @@
 </div>
 
 <script>
+  function formExit() {
+    document.getElementById('newForm').remove();
+  }
   function myFunction(id) {
     if (document.contains(document.getElementById('newForm'))){
       document.getElementById('newForm').remove();
     }
     var a = document.getElementById(id);
     a.insertAdjacentHTML('afterend','<form id="newForm" method="post">\
+      <div class="d-flex justify-content-between"><h2>Reply:</h2><div><button type="button" style="background-color: rgb(59, 59, 92); " class="btn btn-outline-secondary" onclick="formExit()">Close</button></div></div>\
       <input type="hidden" name="csrfmiddlewaretoken" value="HMkjvTm6y6toukgnl16ymgrmmnRxE33FyjctimptkcCKMrwEkFfyktsHLKPqWFr5">\
       <input style="background-color: rgb(67, 67, 114); color: rgb(189, 186, 186);"  class="form-control " name="content" placeholder="Write your comment here...">\
       <select name="parent" class="d-none" id="id_parent">\
