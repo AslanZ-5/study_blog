@@ -90,10 +90,14 @@
 
       {% endif %}
     </form>
+    {{post.comment_set.all.count}}
     </div>
+    
     <div class="room__conversation">
       <div class="threads scroll">
-        {% for comment in post.comment_set.all %}
+        {% load mptt_tags %}
+
+        {% recursetree post.comment_set.all %}
         <div class="thread">
           <div class="thread__top">
             <div class="thread__author">
@@ -101,9 +105,10 @@
                 <div class="avatar avatar--small">
                   <img src="https://randomuser.me/api/portraits/men/37.jpg" />
                 </div>
-                <span>@{{comment.writer}}</span>
-              </a>
-              <span class="thread__date">{{comment.created|timesince}}</span>
+                <span>@{{node.writer}}</span>
+              </a> 
+              <a onclick="myFunction({{node.id}})">Reply</a>
+              <span class="thread__date">{{node.created|timesince}}</span>
             </div>
             
             <a href="#">
@@ -119,10 +124,16 @@
          
           </div>
           <div class="thread__details">
-            {{comment.content}}
+            {{node.content}}
+            
           </div>
         </div> 
-        {% endfor %}
+        {% if not node.is_leaf_node %} 
+        <div class="children p1-2 pl-md-5">
+          {{children}}
+        </div>
+        {% endif %}
+        {% endrecursetree %}
       </div>
     </div>
   </div>
@@ -130,9 +141,8 @@
   <div class="room__message">
     <form action="" method="post">
       {% csrf_token%}
-     <input name="content" placeholder="Write your message here..." />
+     <input name="content" placeholder="Write your comment here..." />
         {{form.parent}}
-        <button type="submit"> comment</button>
     </form>
   </div>
 </div>

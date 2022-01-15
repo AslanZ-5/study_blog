@@ -7,6 +7,7 @@ class CommentForm(ModelForm):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         self.fields['parent'].required = False
+        self.fields['parent'].widget.attrs.update({'class':'d-none'})
     class Meta:
         model = Comment
         fields = ['content','parent']
