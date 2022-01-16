@@ -26,6 +26,7 @@ def LikePost(request):
 
 class HomeListView(ListView):
     model = Post
+    paginate_by = 2
     def get_queryset(self):
         query = self.request.GET.get('q')
         if query:

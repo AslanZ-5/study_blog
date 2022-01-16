@@ -64,9 +64,9 @@
       </div>
       <div class="room__hosted">
         <p>Hosted By</p>
-        <a href="#" class="room__author">
+        <a href="{% url 'users:user-profile' post.author.id %}" class="room__author">
           <div class="avatar avatar--small">
-            <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+            <img src="{{post.author.profile.image.url}}" />
           </div>
           <span>@{{post.author.username}}</span>
         </a>
@@ -90,21 +90,21 @@
 
       {% endif %}
     </form>
-
+      <div style="margin: 10px;">Comments {{post.comment_set.all.count}}</div>
     </div>
     
     <div class="room__conversation">
       <div class="threads scroll">
         {% load mptt_tags %}
-
+        {% if post.comment_set.all %}
         {% recursetree post.comment_set.all %}
         <div class="my-2 p-2" style="border: 1px solid grey;">
         <div class="thread">
           <div class="thread__top">
             <div class="thread__author">
-              <a href="#" class="thread__authorInfo">
+              <a href="{% url 'users:user-profile' node.writer.id %}" class="thread__authorInfo">
                 <div class="avatar avatar--small">
-                  <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                  <img src="{{ node.writer.profile.image.url }}" />
                 </div>
                 <span>@{{node.writer}}</span>
               </a> 
@@ -139,7 +139,11 @@
       </div>
     </div>
   </div>
-  
+  {% else %}   
+  <br>
+  <br>
+        <p>No Comments</p>
+  {% endif %} 
   <div class="room__message">
     <form id="myForm" action="" method="post">
       {% csrf_token%}
