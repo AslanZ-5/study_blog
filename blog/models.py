@@ -24,7 +24,10 @@ class Post(models.Model):
         return reverse('blog:post_detail', kwargs={'slug':self.title_tag})
     
     def save(self,*args,**kwargs):
-        a = Post.objects.all().last().id
+        try:
+            a = Post.objects.all().last().id
+        except:
+            a = 0
         self.title_tag = f"{self.title.replace(' ', '-')}-{a+1}-{self.author.id}"
         super().save(*args,**kwargs)
 
