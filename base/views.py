@@ -15,13 +15,14 @@ def home(request):
     rooms = Room.objects.filter(Q(topic__name__icontains=q)|
                                 Q(name__icontains=q)|
                                 Q(description__icontains=q))
-    paginator = Paginator(rooms,2)
+    
+    paginator = Paginator(rooms,3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     topic = Topic.objects.all()
     room_count = rooms.count()
     room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))[:7]
-    context = {'rooms':rooms,
+    context = {
                 'topic':topic,
                 'room_count':room_count,
                 'room_messages':room_messages,
