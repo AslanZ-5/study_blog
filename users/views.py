@@ -25,7 +25,10 @@ def login_page(request):
     if request.user.is_authenticated:
         return redirect('blog:home')
     if request.method == "POST":
-        username = request.POST.get('username').lower()
+        try:
+            username = request.POST.get('username').lower()
+        except:
+            username = request.POST.get('username')
         password = request.POST.get('password')
 
         try:
