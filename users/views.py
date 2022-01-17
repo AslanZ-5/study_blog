@@ -47,6 +47,7 @@ def logout_user(request):
     return redirect('blog:home')
 
 def register_page(request):
+    
     form = RegistrationForm()
     if request.method == "POST":
         form = RegistrationForm(request.POST)
@@ -58,6 +59,7 @@ def register_page(request):
             return redirect('blog:home')
         else:
             messages.error(request, 'An error eccured during registration')
+            return render(request, 'login_register.html',{'form':form},status=400)
 
     return render(request, 'login_register.html',{'form':form})
 
