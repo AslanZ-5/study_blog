@@ -1,6 +1,6 @@
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect,get_list_or_404
-from django.urls import reverse
+from django.urls import reverse,reverse_lazy
 from django.urls.converters import SlugConverter
 from django.views.generic import ListView,CreateView,UpdateView,DeleteView
 from .models import Post,Comment
@@ -80,6 +80,7 @@ class PostDetailView(FormMixin,DetailView):
 
 class AddPostView(LoginRequiredMixin,CreateView):
     model = Post
+    login_url = reverse_lazy('users:login')
     fields = ['title','body']
 
     def form_valid(self, form):

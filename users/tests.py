@@ -57,12 +57,7 @@ class LoginTest(BaseTest):
         self.assertTrue(user.is_active)
         user.save()
         response = self.client.post(self.login_url,self.user,format='text/html')
-        print(dir(response))
-        print('request--------',response.request)
-        print(response.status_code)
-        print(response.templates)
-        print(response.url)
-
+       
         self.assertEqual(response.status_code,302)
 
     def test_cant_login(self):
