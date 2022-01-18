@@ -36,6 +36,11 @@ class TestBase(TestCase):
         d = self.message
         self.assertEqual(len(str(d)),len('my message...'))
         self.assertEqual(d.user.username,self.user_1.username)
+
     def test_count_rooms(self):
         a = Room.objects.all().count()
-        self.assertEqual(a,1)
+        c = Topic.objects.all().count()
+        r = User.objects.all().count()
+        self.assertEquals(a,1)
+        self.assertEquals(c,1)
+        self.assertEquals(r,1)
