@@ -9,6 +9,7 @@ class PostTestCase(TestCase):
         self.factory = RequestFactory()
         self.user_a = User.objects.create_user('user1','test12345')
         self.user_b = User.objects.create_user('user2','test12345')
+        self.post_1 = Post.objects.create(title='hello',body='dddd',author=self.user_a)
 
     def test_users_count(self):
         quantity = User.objects.all().count()
@@ -23,11 +24,17 @@ class PostTestCase(TestCase):
         self.assertEqual(response.status_code,302)
         
     def test_details(self):
-        a = Post.objects.create(title='hello',body='dddd',author=self.user_a)
-        response = self.client.get(f'/post/{a.title_tag}/')
+        
+        response = self.client.get(f'/post/{self.post_1.title_tag}/')
       
         self.assertEqual(response.status_code,200)
         self.assertEqual(response.context['post'].title,'hello')
-    
 
+    def test_home_view(self):
+        response = self.client.get('/')
+        print(response.status_code)
+        print(len(response.context['object_list']))
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(len(response.context['object_list']),1)
+    
 #                 py manage.py test blog.tests.view_tests
