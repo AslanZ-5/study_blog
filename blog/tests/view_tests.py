@@ -32,9 +32,9 @@ class PostTestCase(TestCase):
 
     def test_home_view(self):
         response = self.client.get('/')
-        print(response.status_code)
-        print(len(response.context['object_list']))
         self.assertEqual(response.status_code,200)
         self.assertEqual(len(response.context['object_list']),1)
+    
+
     
 #                 py manage.py test blog.tests.view_tests
