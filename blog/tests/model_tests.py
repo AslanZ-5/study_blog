@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Post, Comment
+from blog.models import Post, Comment
 from django.contrib.auth.models import User
 
 
@@ -50,5 +50,10 @@ class PostTestCase(TestCase):
     def test_likes(self):
         likes = self.post_1.likes.count()
         self.assertEqual(likes,7)
+
+    def test_post_str_method(self):
+        d = self.post_1
+        self.assertTrue(isinstance(d,Post))
+        self.assertEqual(str(d),'Post "test post"')
         
-#py manage.py test blog
+#py manage.py test blog.tests.model_tests
