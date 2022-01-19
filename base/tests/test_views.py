@@ -2,7 +2,7 @@ import imp
 from urllib import response
 from django.test import TestCase
 from django.urls import reverse
-from base.models import Room,Topic
+from base.models import Room,Topic,Message
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 
@@ -53,12 +53,19 @@ class BaseViewsTest(TestCase):
         self.assertEqual(user,response.context['user'])
         self.assertTemplateUsed(response,'create-room.html')
 
-    def test_create_room(self):
+    def test_created_room(self):
         login = self.client.login(username='user1',password='test12345')
         user = User.objects.get(username='user1')
         response = self.client.post(reverse('base:create_room'),{'host':user,'topic':Topic.objects.all().first(),'name':'sssd'})
-        print(response.url)
-        rooms = Room.objects.all().count()
-        print(rooms)
+        room = Room.objects.get(name='sssd')
+        self.assertRedirects(response,f'/rooms/room/{room.id}/')
+
+    def test_create_meassage_in_room_detail_page(self):
+        login = self.client.login(username='user1',password='test12345')
+        user = User.objects.get(username='user1')
+        room = Room.objects.all().first()
+        response = self.client.post(reverse('base:room',args=[room.id]),{'user':user,'room':room,'body':'this is test message'})
+        self.assertRedirects(response,f'/rooms/room/{room.id}/')
+        self.assertEqual(Message.objects.all().count(),1)
         
     # py manage.py test base.tests.test_views
