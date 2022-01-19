@@ -26,7 +26,7 @@ class PostTestCase(TestCase):
     def test_details(self):
         
         response = self.client.get(f'/post/{self.post_1.title_tag}/')
-      
+    
         self.assertEqual(response.status_code,200)
         self.assertEqual(response.context['post'].title,'hello')
 

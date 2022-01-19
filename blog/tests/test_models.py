@@ -42,6 +42,9 @@ class PostTestCase(TestCase):
         qs = Post.objects.filter(author=user)
         self.assertEqual(qs.count(),1)
 
+    def test_post_fields(self):
+        field = self.post_1._meta.get_field('title').max_length
+        self.assertEqual(field,220)
     def test_post_coments_count(self):
         post = self.post_1
         qs = post.comment_set.all().count()
