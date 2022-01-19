@@ -54,18 +54,38 @@ class BaseViewsTest(TestCase):
         self.assertTemplateUsed(response,'create-room.html')
 
     def test_created_room(self):
-        login = self.client.login(username='user1',password='test12345')
+        self.client.login(username='user1',password='test12345')
         user = User.objects.get(username='user1')
         response = self.client.post(reverse('base:create_room'),{'host':user,'topic':Topic.objects.all().first(),'name':'sssd'})
         room = Room.objects.get(name='sssd')
         self.assertRedirects(response,f'/rooms/room/{room.id}/')
 
     def test_create_meassage_in_room_detail_page(self):
-        login = self.client.login(username='user1',password='test12345')
+        self.client.login(username='user1',password='test12345')
         user = User.objects.get(username='user1')
         room = Room.objects.all().first()
         response = self.client.post(reverse('base:room',args=[room.id]),{'user':user,'room':room,'body':'this is test message'})
         self.assertRedirects(response,f'/rooms/room/{room.id}/')
         self.assertEqual(Message.objects.all().count(),1)
+
+
+    def test_update_room_functionality(self):
+        login = self.client.login(username='user1',password='test12345')
+        user = User.objects.get(username='user1')
+        topic = Topic.objects.all().first()
+        new_topic = Topic.objects.create(name='updated topic')
+        room = Room.objects.create(name='Old name',host=user,topic=topic)
+        data = {
+            'name':'updated name',
+            
+            }
+        response = self.client.post(reverse('base:update_room',kwargs={'pk':room.id}),data)
+        
+        
+        # print(response.status_code)
+        # room.first_name = 'not Updated'
+        # room.save()
+        # print(room.first_name)
+        
         
     # py manage.py test base.tests.test_views
