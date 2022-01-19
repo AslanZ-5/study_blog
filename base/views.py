@@ -52,19 +52,19 @@ def room(request,pk):
 
 
 
-@login_required(login_url='base:login')
+@login_required(login_url='users:login')
 def create_room(request):
     form = RoomForm()
     topics = Topic.objects.all()
     if request.method == "POST":
         topic,created = Topic.objects.get_or_create(name=request.POST.get('topic')) 
-        Room.objects.create(
+        a = Room.objects.create(
             name= request.POST.get('name'),
             host= request.user,
             description= request.POST.get('description'),
             topic= topic,
         )
-        return redirect('base:home')
+        return redirect(a.get_absolute_url())
         
             
         print(request.POST)
