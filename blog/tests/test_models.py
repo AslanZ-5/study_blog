@@ -55,5 +55,12 @@ class PostTestCase(TestCase):
         d = self.post_1
         self.assertTrue(isinstance(d,Post))
         self.assertEqual(str(d),'Post "test post"')
+
+    def test_post_get_absolute_url_method(self):
+        a = self.post_1.get_absolute_url()
+        post_tag = self.post_1.title_tag
+        response = self.client.get(f'/post/{post_tag}/')
+        self.assertEqual(a,f'/post/{post_tag}/')
+        self.assertEqual(response.status_code,200)
         
-#py manage.py test blog.tests.model_tests
+#py manage.py test blog.tests.test_models
