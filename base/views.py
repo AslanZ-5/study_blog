@@ -80,7 +80,7 @@ def update_room(request,pk):
     if request.user != room.host:
         return HttpResponse('You are not allowed here! Only room authors can to update info.')
     if request.method  == "POST":
-        print(request.POST)
+       
         topic,created = Topic.objects.get_or_create(name=request.POST.get('topic')) 
         room.topic = topic
         room.name = request.POST.get('name')

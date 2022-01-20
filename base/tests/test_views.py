@@ -119,11 +119,10 @@ class BaseViewsTest(TestCase):
     #     login = self.client.login(username='user1',password='test12345')
     #     user = User.objects.get(username='user1')
     #     room = Room.objects.filter(host=user).first()
-    #     data = {
-    #         'name':'updated name'
-    #         }
-    #     response = self.client.post(reverse('base:update_room',kwargs={'pk':room.id}),data)
+        
+    #     response = self.client.post(reverse('base:update_room',kwargs={'pk':room.id}))
     #     self.assertTemplateUsed(response,'create_update_room.html')
+    #     self.assertEqual(response.status_code,200)
     def test_update_room_functionality_failure(self):
         login = self.client.login(username='user3',password='test12345')
         
@@ -176,4 +175,6 @@ class BaseViewsTest(TestCase):
         self.assertEqual(response.status_code,200)
         self.assertTrue(isinstance(response.context['messages'][0],Message))
         self.assertTemplateUsed(response,'activity.html')
+    
+    
     # py manage.py test base.tests.test_views
