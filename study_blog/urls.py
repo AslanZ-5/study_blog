@@ -33,3 +33,8 @@ urlpatterns = [
     path('password-reset-complete/',auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),name='password_reset_complete'),
 
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+
+admin.site.index_title = 'The Study Blog'
+admin.site.site_header = 'The Study Blog Administrations'
+admin.site.site_title = 'Sudy Blog Admin'
