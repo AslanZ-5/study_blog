@@ -18,11 +18,11 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
-
+from blog.admin import blog_site
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('blog/admin/', blog_site.urls),
     path('rooms/',include('base.urls')),
     path('',include('blog.urls')),
     path('api/', include('base.api.api_urls')),
