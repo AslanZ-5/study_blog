@@ -7,9 +7,9 @@ from mptt.models import MPTTModel,TreeForeignKey
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=220)
+    title = models.CharField(max_length=220, help_text='This  title is required')
     author = models.ForeignKey(User,on_delete=models.CASCADE)
-    title_tag = models.CharField(max_length=220,unique=True,blank=True)
+    title_tag = models.CharField(max_length=220,unique=True,blank=True,help_text='automatically maded')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     # category = 
