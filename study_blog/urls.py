@@ -22,6 +22,7 @@ from blog.admin import blog_site
 
 
 urlpatterns = [
+    path('admin/',admin.site.urls),
     path('blog/admin/', blog_site.urls),
     path('rooms/',include('base.urls')),
     path('',include('blog.urls')),
