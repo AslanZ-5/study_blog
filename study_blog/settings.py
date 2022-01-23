@@ -68,6 +68,7 @@ TEMPLATES = [
             BASE_DIR / 'templates',
             BASE_DIR / 'base/templates/base',
             BASE_DIR / 'users/templates/users',
+           
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -138,7 +139,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
-    BASE_DIR / 'static/admin/css',
+    BASE_DIR / 'static/admin/css2',
     BASE_DIR / 'static/styles',
     BASE_DIR / 'static/images',
 ]

@@ -31,7 +31,12 @@ class BaseAdminArea(admin.AdminSite):
 
 base_site = BaseAdminArea(name='BaseAdmin')
 
-base_site.register(Room)
+
+class BaseAdmin(admin.ModelAdmin):
+    list_display = ('name','id','topic','host')
+    list_filter = ('topic','host')
+
+base_site.register(Room,BaseAdmin)
 base_site.register(Topic)
 base_site.register(Message)
 base_site.register(Profile)
