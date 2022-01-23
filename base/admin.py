@@ -3,8 +3,8 @@ from .models import Room, Topic ,Message,Profile
 import django.apps
 
 class Filter(admin.ModelAdmin):
-    list_display = ('id','email','user','bio','is_active')
-    list_filter = ('is_active','role')
+    list_display = ('id','email','user','bio',)
+    list_filter = ('role',)
 
 
 class BaseAdminArea(admin.AdminSite):
@@ -24,7 +24,7 @@ base_site.register(Profile)
 admin.site.register(Room)
 admin.site.register(Topic)
 admin.site.register(Message)
-admin.site.register(Profile)
+admin.site.register(Profile,Filter)
 
 # models = django.apps.apps.get_models()
 # for model in models:

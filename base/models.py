@@ -20,7 +20,8 @@ class Profile(models.Model):
     @property
     def email(self):
         return f'{self.user.email}'
-        
+
+
     def __str__(self):
         return f'{self.user.username}'
     
