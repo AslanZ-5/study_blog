@@ -25,6 +25,7 @@ urlpatterns = [
     path('base-admin/',base_site.urls),
     path('rooms/',include('base.urls')),
     path('',include('blog.urls')),
+    path('summernote/',include('django_summernote.urls')),
     path('api/', include('base.api.api_urls')),
     path('users/',include('users.urls')),
     path('password-reset/',auth_views.PasswordResetView.as_view(template_name='password_reset.html'),name='password_reset'),
@@ -32,9 +33,11 @@ urlpatterns = [
     path('password-reset-confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),name='password_reset_confirm'),
     path('password-reset-complete/',auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),name='password_reset_complete'),
 
-]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+]
 
-
+if settings.DEBUG:
+    urlpatterns +=  static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    
 admin.site.index_title = 'The Study Blog'
 admin.site.site_header = 'The Study Blog Administrations'
 admin.site.site_title = 'Sudy Blog Admin'
