@@ -6,19 +6,29 @@ from django.db.models.fields import TextField
 from django.urls import reverse
 
 class Profile(models.Model):
+    ROLE_CHOICES = (
+        (1,'User'),
+        (2,'Supplier'),
+        (3,'Admin'),
+        (4,'SuperUser')
+    )
     user = models.OneToOneField(User,on_delete=CASCADE)
     image = models.ImageField(default='default.jpg',upload_to='avatar/')
     bio = TextField(null=True,blank=True)
+    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES,null=True,blank=True)
 
+    @property
+    def email(self):
+        return f'{self.user.email}'
+        
     def __str__(self):
         return f'{self.user.username}'
-        
+    
 class Topic(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
-
 class Room(models.Model):
     host =  models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
     topic = models.ForeignKey(Topic,on_delete=models.SET_NULL, null=True,)

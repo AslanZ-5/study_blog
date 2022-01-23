@@ -2,6 +2,11 @@ from django.contrib import admin
 from .models import Room, Topic ,Message,Profile
 import django.apps
 
+class Filter(admin.ModelAdmin):
+    list_display = ('id','email','user','bio','is_active')
+    list_filter = ('is_active','role')
+
+
 class BaseAdminArea(admin.AdminSite):
     site_header = 'Base Admin Area'
     login_template = 'admin/admin.html'
