@@ -21,6 +21,14 @@
             <div class="layout__boxTitle">
               <h3>Login</h3>
             </div>
+
+            <div>
+              <ul>
+                <li>
+                  <a href="{% url "social:begin" "facebook" %}"> Sigin wiht Facebook</a>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="layout__body">
             <h2 class="auth__tagline">Find your study partner</h2>
@@ -65,7 +73,6 @@
             <div class="auth__action">
               <p>Haven't signed up yet?</p>
               <a href="{% url 'users:register' %}" class="btn btn--link">Sign Up</a>
-              
             </div>
             <div>
               <a href="{% url 'password_reset' %}" class="btn btn--link"><p>Forget your password?</p></a>
