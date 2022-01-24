@@ -23,7 +23,7 @@ from base.admin import base_site
 urlpatterns = [
     path('admin/',admin.site.urls),
     path('base-admin/',base_site.urls),
-    path('', include('social_django.urls', namespace='social')),
+    path('social-auth/', include('social_django.urls', namespace="social")),
     path('rooms/',include('base.urls')),
     path('',include('blog.urls')),
     path('summernote/',include('django_summernote.urls')),
