@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'mptt',
     'django_summernote',
+    'snowpenguin.django.recaptcha3',
 ]
 
 MIDDLEWARE = [
@@ -162,3 +163,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'asln.zurabov@gmail.com'
 EMAIL_HOST_PASSWORD = 'ifdttucipwbwhqak'
+
+
+RECAPTCHA_PUBLIC_KEY = '6Ld-LDceAAAAABcU-r_5uMY5dEbYiz8XAcTU618Z'
+RECAPTCHA_PRIVATE_KEY = '6Ld-LDceAAAAAIT8zbaPdP3t5f2TOHdPVcsqjc_d'
+RECAPTCHA_DEFAULT_ACTION = 'generic'
+RECAPTCHA_SCORE_THRESHOLD = 0.5
