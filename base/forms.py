@@ -11,6 +11,6 @@ class RoomForm(ModelForm):
     captcha = ReCaptchaField()
     class Meta:
         model = Room
-        exclude = ['host','participants','captcha']
+        fields = ['name','description','topic','captcha']
 
 
