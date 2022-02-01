@@ -91,11 +91,11 @@ WSGI_APPLICATION = 'study_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':  'djblog',
-        'HOST':'127.0.0.1',
-        'PORT':'3306',
-        'USER':'root',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':  'STUDY',
+        'HOST':'localhost',
+        'PORT':'5433',
+        'USER':'postgres',
         'PASSWORD':'aslan006'
     }
 }
