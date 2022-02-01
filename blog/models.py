@@ -30,7 +30,9 @@ class Post(models.Model):
             a = 0
         self.title_tag = f"{self.title.replace(' ', '-')}-{a+1}-{self.author.id}"
         super().save(*args,**kwargs)
-
+    class Meta:
+        ordering = ['-created']
+        
 class Comment(MPTTModel):
     post = models.ForeignKey(Post,on_delete=models.CASCADE)
     parent = TreeForeignKey('self',on_delete=models.CASCADE, null=True,blank=True,related_name='children')
