@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'mptt',
     'django_summernote',
     'snowpenguin.django.recaptcha3',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -130,14 +131,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
     BASE_DIR / 'static/styles',
     BASE_DIR / 'static/images'
 ]
 
-MEDIA_URL = '/media/'
+
 MEDIA_ROOT = BASE_DIR / 'media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -163,3 +164,14 @@ RECAPTCHA_SCORE_THRESHOLD = 0.5
 AWS_ACCESS_KEY_ID = 'AKIARTHVHMINDQKGRMVC'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'study-blog-asl'
+AWS_DEFAULT_ACL = None
+AWS_S3_FILE_OVERWRITE = False
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+S3_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl':'max-age=86400'}
+AWS_LOCATION='static'
+STATIC_URL = f'https//{S3_URL}/{AWS_LOCATION}/'
+
+
