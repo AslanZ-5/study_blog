@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-$*qck6xq8u9wuff5e8+7+mpj-jt#4#+u^5z)=1ad_m#q#^g=5*
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -57,7 +55,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-
 ]
 
 ROOT_URLCONF = 'study_blog.urls'
@@ -69,7 +66,7 @@ TEMPLATES = [
             BASE_DIR / 'templates',
             BASE_DIR / 'base/templates/base',
             BASE_DIR / 'users/templates/users',
-           
+
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -85,21 +82,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'study_blog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':  'djblog',
-        'HOST':'127.0.0.1',
-        'PORT':'3306',
-        'USER':'root',
-        'PASSWORD':'aslan006'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'STUDY',
+        'HOST': 'localhost',
+        'PORT': '5433',
+        'USER': 'postgres',
+        'PASSWORD': 'aslan006'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -119,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -132,7 +126,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -151,11 +144,9 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 CORS_ALLOW_ALL_ORIGINS = True
 
 LOGIN_URL = 'users/login/'
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -164,8 +155,11 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'asln.zurabov@gmail.com'
 EMAIL_HOST_PASSWORD = 'ifdttucipwbwhqak'
 
-
 RECAPTCHA_PUBLIC_KEY = '6Ld-LDceAAAAABcU-r_5uMY5dEbYiz8XAcTU618Z'
 RECAPTCHA_PRIVATE_KEY = '6Ld-LDceAAAAAIT8zbaPdP3t5f2TOHdPVcsqjc_d'
 RECAPTCHA_DEFAULT_ACTION = 'generic'
 RECAPTCHA_SCORE_THRESHOLD = 0.5
+
+AWS_ACCESS_KEY_ID = 'AKIARTHVHMINDQKGRMVC'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'study-blog-asl'
