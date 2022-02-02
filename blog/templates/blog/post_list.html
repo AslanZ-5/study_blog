@@ -24,6 +24,7 @@
               Study Rooms
             </a>
           </div>
+          {% if post_list %}
           {% for post in post_list %} 
           <div class="container" style="margin-top: 20px;">
           <div class="roomListRoom">
@@ -63,14 +64,20 @@
                   </svg>
                    Joined
                 </a>
+                {% if user == post.author %}
                 <a href="{% url 'blog:post_update' post.title_tag %}">Update</a>
                 <a href="{% url 'blog:post_delete' post.title_tag %}">Delete</a>
-          
+                {% endif %}
                 
               </div>
             </div>
             </div>
             {% endfor %}
+          {% else %}
+          <div>
+            <h2 style="margin:60px;">No Posts</h2>
+          </div>
+          {% endif %}
          
            <!-- Startp Pagination -->
            {% include 'paginator.html' %}
