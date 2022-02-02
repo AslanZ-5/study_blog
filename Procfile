@@ -1,1 +1,1 @@
-web: gunicorn study_blog.wsgi
+web: gunicorn study_blog.wsgi --log-file - 

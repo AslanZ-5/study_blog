@@ -1,9 +1,7 @@
-from re import T
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from mptt.models import MPTTModel,TreeForeignKey
-
 
 
 class Post(models.Model):
@@ -12,8 +10,6 @@ class Post(models.Model):
     title_tag = models.CharField(max_length=220,unique=True,blank=True,help_text='automatically maded')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    # category = 
-    # header_image = 
     likes = models.ManyToManyField(User,related_name='blog_post')
     body = models.TextField(blank=True,null=True)
 

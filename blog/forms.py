@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from .models import Comment
 from mptt.forms import TreeNodeChoiceField
 
+
 class CommentForm(ModelForm):
     parent = TreeNodeChoiceField(queryset=Comment.objects.all())
     def __init__(self,*args,**kwargs):
