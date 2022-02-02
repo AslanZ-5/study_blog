@@ -67,7 +67,7 @@ def create_room(request):
         return redirect(a.get_absolute_url())
         
             
-        print(request.POST)
+
     context = {'form':form,'topics':topics}
     return render(request,'create-room.html',context)
 
