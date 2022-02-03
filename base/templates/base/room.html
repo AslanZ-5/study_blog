@@ -86,7 +86,7 @@
                     <div class="thread__author">
                       <a href="{% url 'users:user-profile' message.user.id %}" class="thread__authorInfo">
                         <div class="avatar avatar--small">
-                          <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                          <img src="{{message.user.profile.image.url}}" />
                         </div>
                         <span>@{{message.user.username}}</span>
                       </a>
@@ -131,7 +131,7 @@
             {% for participant in participants %}
             <a href="{% url 'users:user-profile' participant.id %}" class="participant">
               <div class="avatar avatar--medium">
-                <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                <img src="{{participant.profile.image.url}}" />
               </div>
               <p>
                 {% if participant.first_name %}{{ participant.first_name}}{% else%} {{participant.username}} {%endif%} 
