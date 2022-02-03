@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 
 SECRET_KEY = config('SECRET_KEY')
-print(SECRET_KEY)
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(config('DEBUG'))
-print(DEBUG)
+
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'study-blog-asl.herokuapp.com']
 
@@ -153,8 +153,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'asln.zurabov@gmail.com'
-EMAIL_HOST_PASSWORD = 'ifdttucipwbwhqak'
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+
+
 
 RECAPTCHA_PUBLIC_KEY = '6LcCVlUeAAAAAAJL-VTXxpQIGJZiQgCJVC3NCXyD'
 RECAPTCHA_PRIVATE_KEY = '6LcCVlUeAAAAAEy4F8RTLaZPUsW2aZ1PjWRmcSfa'
