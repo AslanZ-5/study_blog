@@ -1,4 +1,6 @@
-{% extends 'main.html' %} 
+{% extends 'main.html' %}
+{% block title %} Update Room {% endblock title %}
+
 {% block content %}
 
   <main class="create-room layout">
@@ -50,7 +52,7 @@
     
             <div class="form__action">
               <a class="btn btn--dark" href="{% url 'base:home' %}">Cancel</a>
-              <button class="btn btn--main" type="submit">Create Room</button>
+              <button class="btn btn--main" type="submit">Update Room</button>
             </div>
           </form>
         </div>
