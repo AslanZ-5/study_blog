@@ -29,7 +29,6 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(config('DEBUG'))
 
-
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'study-blog-asl.herokuapp.com']
 
 # Application definition
@@ -156,8 +155,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 
-
-
 RECAPTCHA_PUBLIC_KEY = config("RECAPTCHA_PUBLIC_KEY")
 RECAPTCHA_PRIVATE_KEY = config("RECAPTCHA_PRIVATE_KEY")
 RECAPTCHA_DEFAULT_ACTION = 'generic'
@@ -181,3 +178,5 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static/styles',
     BASE_DIR / 'static/images'
 ]
+
+SECURE_HSTS_SECONDS = 60
